@@ -31,10 +31,9 @@ def main():
 
 # MAKE_CERT FUNCTION
 def make_cert(name):
-    global draw, img_width, message_tagline
+    global draw, img_width
     img = Image.open(f"{PREFIX}cert.jpg")
     img_width = img.width # get image dimensions
-    img_height = img.height
     
     # WRITE NAME
     draw = ImageDraw.Draw(img) # create draw object
