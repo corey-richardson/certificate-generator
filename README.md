@@ -8,6 +8,9 @@
 - pandas
     - `import pandas as pd`
     - Used to read and manage the user information passed in from `information.csv` as a dataframe.
+- os
+    - `import os`
+    - Used to open a file explorer instance of the output directory after the certificates have been created.
 - pillow
     - `from PIL import Image, ImageDraw, ImageFont`
     - Used for image manipulation.
@@ -46,6 +49,7 @@ Constants `PREFIX` and `FONT_TYPE` are NOT to be changed.
 - For each name in the dataframe, call the function `make_cert()` passing the name in as a parameter.
 - Update the information / input CSV file with the file path of the created certificate.
 - Show a message box letting the user know the process is completed.
+- Opens a file explorer instance of the output directory.
 
 ---
 
