@@ -8,12 +8,12 @@ from PIL import Image, ImageDraw, ImageFont
 # name font
 font_name = "WinterSong-owRGB.ttf"
 font_size = 200
-text_y_pos = 250
+text_y_pos = 270
 # sublines font
 tagline_FONT_TYPE = "calibri.ttf"
 # tagline_FONT_TYPE = "comic.ttf"
-tagline_font_size = 48
-tagline_spacing = 370
+tagline_font_size = 48 # 48 # 40
+tagline_spacing = 390 # 390 # 735
 
 PREFIX = "assets/"
 FONT_TYPE = PREFIX +  font_name
@@ -27,30 +27,34 @@ def main():
     for i, name in enumerate(information_df.first_name):
         print(f"Creating certificate for {name}..... {i+1}/{len(information_df.index)}")
         make_cert(name)
+        information_df["file_path"][i] = f"out/{name}.png"
     print("Finished creating certificates!")
+    information_df.to_csv("information.csv", index=False)
+    print("Updated CSV file.")
 
 # MAKE_CERT FUNCTION
 def make_cert(name):
     global draw, img_width
-    img = Image.open(f"{PREFIX}cert.jpg")
+    img = Image.open(f"{PREFIX}cert6.jpg")
     img_width = img.width # get image dimensions
     
     # WRITE NAME
     draw = ImageDraw.Draw(img) # create draw object
     font_title = ImageFont.truetype( # create font object
         FONT_TYPE,
-        font_size)
+        font_size
+        )
     # used for alingment centring
     text_width, _ = draw.textsize(name, font = font_title)
     draw.text( # write on image
-            ( (img_width - text_width) / 2, text_y_pos),
+            ( (img_width - text_width) / 2 +350, text_y_pos), # +350 # -500
             name, font = font_title, fill = "black")
     
     # WRITE SUB-LINES
     # SET SUB-LINE TEXT HERE
     line_num = 0
-    line_num = write_subline("hello", line_num)
-    line_num = write_subline("world", line_num)
+    line_num = write_subline("...participated in the [AEROSPACE COMP.]", line_num)
+    line_num = write_subline("'Young Inventors' Challenge", line_num)
     
     # output and save certificate as image
     img.save("out/{}.png".format(name.lower())) # save completed certificate to 'out/...'
@@ -63,8 +67,8 @@ def write_subline(text_to_write, line_num):
     # used for alingment centring
     text_width, _ = draw.textsize(text_to_write, font = font_tagline)
     draw.text( # write on image, for each line (zero indexed) add 50 pixels spacing
-        ( (img_width - text_width) / 2, text_y_pos + tagline_spacing + (50*line_num)),
-        text_to_write, font = font_tagline, fill = "black")
+        ( (img_width - text_width) / 2 + 350, text_y_pos + tagline_spacing + (50*line_num)),
+        text_to_write, font = font_tagline, fill = "black") # +350 # -300
     return line_num + 1 # increment line num and return to be used by the next line
     
 if __name__ == "__main__":
