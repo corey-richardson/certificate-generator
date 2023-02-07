@@ -11,7 +11,12 @@
 - pillow
     - `from PIL import Image, ImageDraw, ImageFont`
     - Used for image manipulation.
-
+- filedialog
+    - `from tkinter import filedialog as fd`
+    - Used to select input / output files via GUI
+- messagebox
+    - `from tkinter import messagebox as mb`
+    - Used to display runtime updates to user in GUI format
 ---
 
 ## Setup Variables
@@ -19,10 +24,10 @@
 ```py
 font_name = "WinterSong-owRGB.ttf"
 font_size = 200
-text_y_pos = 270
+text_y_pos = 250
 tagline_FONT_TYPE = "calibri.ttf"
 tagline_font_size = 48
-tagline_spacing = 390
+tagline_spacing = 370
 
 PREFIX = "assets/"
 FONT_TYPE = PREFIX +  font_name
@@ -35,10 +40,12 @@ Constants `PREFIX` and `FONT_TYPE` are NOT to be changed.
 
 ## Main
 
-- Reads CSV data into a datafram using pandas module.
-    - `information_df = pd.read_csv("information.csv")`
-- Iterates through each row in the `first_name` column of `information.csv` and passes the name as a parameter of the function `make_cert`.
-- Once it has iterated through each name, prints an output message `"Finished creating certificates!"`
+- Reads "information.csv" into a pandas dataframe
+- Error Handling: If the file cannot be found in the current directory then open a file explorer instance for the user to manually select the file.
+- Open a file explorer instance for the user to select the output directory.
+- For each name in the dataframe, call the function `make_cert()` passing the name in as a parameter.
+- Update the information / input CSV file with the file path of the created certificate.
+- Show a message box letting the user know the process is completed.
 
 ---
 
@@ -82,7 +89,7 @@ with open("information.csv","a") as info_file:
         guardian_name = input("guardian full name: ")
         email = input("email: ")
             
-        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower()},"
+        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower()}"
         info_file.write(to_write)
         print("added " + to_write)
 ```
