@@ -10,6 +10,6 @@ with open("information.csv","a") as info_file:
         name = input("child first name: ")
         guardian_name = input("guardian full name: ")
         email = input("email: ")
-        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower()}"
+        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower(),}"
         info_file.write(to_write)
         print("added " + to_write)
