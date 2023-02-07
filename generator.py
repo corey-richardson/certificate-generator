@@ -2,6 +2,7 @@ import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning) # <-- bad lol
 
 import pandas as pd
+import os
 from PIL import Image, ImageDraw, ImageFont
 from tkinter import filedialog as fd
 from tkinter import messagebox as mb
@@ -44,7 +45,8 @@ def main():
         information_df["file_path"][i] = f"{output_dir}/{name}.png"
     information_df.to_csv(input_file, index=False)
     mb.showinfo("Done!","Finished creating certificates!")
-
+    os.startfile(output_dir) # opens output dir
+    
 # MAKE_CERT FUNCTION
 def make_cert(name):
     global draw, img_width
