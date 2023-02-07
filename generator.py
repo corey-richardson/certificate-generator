@@ -89,6 +89,3 @@ def write_subline(text_to_write, line_num):
 if __name__ == "__main__":
     main()
     
-    
-# Participated in Collins Aerospace's 'Young Inventors'
-# Challenge 2023
