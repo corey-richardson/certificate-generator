@@ -3,6 +3,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning) # <-- bad lol
 
 import pandas as pd
 from PIL import Image, ImageDraw, ImageFont
+from tkinter import filedialog as fd
+from tkinter import messagebox as mb
 
 # setup variables
 # name font
@@ -20,17 +22,28 @@ FONT_TYPE = PREFIX +  font_name
 
 # MAIN FUNCTION
 def main():
-    # read the csv data into a dataframe named 'information_df'
-    information_df = pd.read_csv("information.csv")
-    
+    try:
+        # read the csv data into a dataframe named 'information_df'
+        input_file = "information.csv"
+        information_df = pd.read_csv(input_file)
+    except FileNotFoundError: # if "information.csv" not automatically found, show a warning box and then
+                              # get the user to manually enter an information / input file
+        mb.showwarning(title="FileNotFoundError",message="Failed to find 'information.csv' in current directory, please select manually.")
+        input_file = fd.askopenfilename(filetypes=[("CSV files", "*.csv")],title="Set input .csv file")
+        information_df = pd.read_csv(input_file)
+        
+    # get output directory to save certificates to
+    global output_dir
+    output_dir = fd.askdirectory(title="Set output folder")
+    print(output_dir)
+        
     # iterate through names in csv data and create certificate for each
     for i, name in enumerate(information_df.first_name):
         print(f"Creating certificate for {name}..... {i+1}/{len(information_df.index)}")
         make_cert(name)
-        information_df["file_path"][i] = f"out/{name}.png"
-    print("Finished creating certificates!")
-    information_df.to_csv("information.csv", index=False)
-    print("Updated CSV file.")
+        information_df["file_path"][i] = f"{output_dir}/{name}.png"
+    information_df.to_csv(input_file, index=False)
+    mb.showinfo("Done!","Finished creating certificates!")
 
 # MAKE_CERT FUNCTION
 def make_cert(name):
@@ -53,11 +66,13 @@ def make_cert(name):
     # WRITE SUB-LINES
     # SET SUB-LINE TEXT HERE
     line_num = 0
-    line_num = write_subline("...participated in the [AEROSPACE COMP.]", line_num)
-    line_num = write_subline("'Young Inventors' Challenge", line_num)
-    
+    line_num = write_subline("write line 1 here", line_num)
+    line_num = write_subline("write line 2 here", line_num)
+    # line_num = write_subline("write line 3 here", line_num)
+    # etc
+        
     # output and save certificate as image
-    img.save("out/{}.png".format(name.lower())) # save completed certificate to 'out/...'
+    img.save("{}/{}.png".format(output_dir, name.lower())) # save completed certificate to 'out/...'
 
 # writes each sub line to the image
 def write_subline(text_to_write, line_num):
@@ -73,3 +88,7 @@ def write_subline(text_to_write, line_num):
     
 if __name__ == "__main__":
     main()
+    
+    
+# Participated in Collins Aerospace's 'Young Inventors'
+# Challenge 2023
