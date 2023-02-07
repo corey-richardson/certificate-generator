@@ -19,10 +19,10 @@
 ```py
 font_name = "WinterSong-owRGB.ttf"
 font_size = 200
-text_y_pos = 250
+text_y_pos = 270
 tagline_FONT_TYPE = "calibri.ttf"
 tagline_font_size = 48
-tagline_spacing = 370
+tagline_spacing = 390
 
 PREFIX = "assets/"
 FONT_TYPE = PREFIX +  font_name
@@ -82,7 +82,7 @@ with open("information.csv","a") as info_file:
         guardian_name = input("guardian full name: ")
         email = input("email: ")
             
-        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower()}"
+        to_write = f"\n{name.title()},{guardian_name.title()},{email.lower()},"
         info_file.write(to_write)
         print("added " + to_write)
 ```
