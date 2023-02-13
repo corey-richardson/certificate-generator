@@ -99,17 +99,3 @@ with open("information.csv","a") as info_file:
 ```
 
 This script is used to write new entries into `information.csv`. Of course this could be done manually but this script produces a consistent format for all entries via data cleansing.
-
----
-
-# Directory levelling
-
-- assets
-    - base image [cert.jpg]
-    - font [.tff]
-- out
-    - This is where the manipulated images will be saved to.
-- add_names.py
-- generator.py
-- information.csv
-- README.md [you are here]
